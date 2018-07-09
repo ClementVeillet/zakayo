@@ -12,7 +12,7 @@ bot.on('ready', function() {
     console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
     bot.user.setActivity('_help | ' + bot.guilds.size + ' serveurs | Zakayo')
     bot.user.setStatus("online");
-    //bot.user.setAvatar('./logozakayo1.png')
+    bot.user.setAvatar('./logozakayo1.png')
 });
 
 bot.on('guildMemberAdd', function (member) {
