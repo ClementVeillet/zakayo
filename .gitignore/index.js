@@ -50,6 +50,18 @@ bot.on('message', async message => {
     if (message.channel.type === 'dm') {
         return message.channel.send(':x: Error : **Désolé je suis un bot, je ne peux donc pas vous répondre correctement mais je vous invite à rejoindre le discord de mon créateur : https://discord.gg/ZWWmXRM !**');
     }
+	    for (var filter of filtered) {
+        if (message.content.indexOf(filter) !== -1) {
+            if (message.member.hasPermission('MANAGE_MESSAGES')) return;
+            message.delete()
+		message.channel.send('Surveille ton language ' + message.author + ' !').then((message) => {
+			setTimeout(()=> {
+				message.delete()
+			}, 3000)
+		})
+        }
+    }
+
     if (!message.content.startsWith(prefix)) return;
     if (message.content === prefix + 'ping') return message.channel.send('**Pong !** :ping_pong: ').then((message) => {message.edit(`**Pong !** :ping_pong: J'ai mis ${Math.round(bot.ping)}ms à répondre !`)});
     if (message.content === prefix + 'invite') return commands.invite(message);
@@ -67,20 +79,6 @@ bot.on('message', async message => {
     if (message.content === prefix + 'admintroll') return message.channel.send('Alexian troll les admins.')
     if (message.content === prefix + 'dieu') return message.channel.send(`Votre Dieu est Zayy' soumettez vous à lui`)
     if (message.content.startsWith(prefix + 'troll')) return commands.troll(message)
-    // BANNED WORD
-
-    for (var filter of filtered) {
-        if (message.content.indexOf(filter) !== -1) {
-            if (message.member.hasPermission('MANAGE_MESSAGES')) return;
-            message.delete()
-		message.channel.send('Surveille ton language ' + message.author + ' !').then((message) => {
-			setTimeout(()=> {
-				message.delete()
-			}, 3000)
-		})
-        }
-    }
-
     // HELP
 
     if (message.content === prefix + 'help') return help.help(message)
