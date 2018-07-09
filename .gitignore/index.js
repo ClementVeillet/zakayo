@@ -4,6 +4,7 @@ const commands = require('./commands/commands')
 const help = require('./commands/help')
 var prefix = '_'
 var noperm = ":x: Vous n'avez pas les perms suffisantes !"
+var filtered = ["fdp", "pd", "connard", "connart", "connars", "connar", "bâtard", "batard", "batars", "batart", "batar", "bite", "ta mere", "abruti", "niqué", "niquer", "enculé", "enculer", "andouille", "bête", "bete", "bouffon", "boufon", "salop", "salope", "pute", "ta race", "rasse", "rase", "cassosse", "cassoce", "chatte", "bite"];
 
 bot.on('ready', function() {
     console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-')
@@ -17,6 +18,8 @@ bot.on('ready', function() {
 
 bot.on('guildMemberAdd', function (member) {
     if (member.guild.id === '405415132177629186') {
+        member.addRole('445970294956359682')
+        member.addRole('454353752078549008')
         member.createDM().then(function(channel){
             channel.send('Bienvenue à toi sur le serveur **[FR] Gaming / Discussion** ! Pour parler tu dois accepter les règles !');
         });
@@ -64,6 +67,19 @@ bot.on('message', async message => {
     if (message.content === prefix + 'admintroll') return message.channel.send('Alexian troll les admins.')
     if (message.content === prefix + 'dieu') return message.channel.send(`Votre Dieu est Zayy' soumettez vous à lui`)
     if (message.content.startsWith(prefix + 'troll')) return commands.troll(message)
+    // BANNED WORD
+
+    for (var filter of filtered) {
+        if (message.content.indexOf(filter) !== -1) {
+            if (message.member.hasPermission('MANAGE_MESSAGES')) return;
+            message.delete()
+		message.channel.send('Surveille ton language ' + message.author + ' !').then((message) => {
+			setTimeout(()=> {
+				message.delete()
+			}, 3000)
+		})
+        }
+    }
 
     // HELP
 
