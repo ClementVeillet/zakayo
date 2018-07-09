@@ -72,6 +72,7 @@ bot.on('message', async message => {
 });
 // COMMANDES HORS DU FICHIER COMMANDS
 bot.on('message', async message => {
+    if (message.channel.type === 'dm') return;
     if (message.content == prefix + ('botinfo')) {
         let serverembed = new Discord.RichEmbed()
         .setTitle('__**Bot Info**__')
@@ -231,6 +232,7 @@ const events = {
 };
 
 bot.on('raw', async event => {
+    if (message.channel.type === 'dm') return;
     if (!events.hasOwnProperty(event.t)) return;
   
     const { d: data } = event;
@@ -252,6 +254,7 @@ bot.on('raw', async event => {
   });
 
   bot.on('messageReactionAdd', async (reaction, user)=>{
+    if (message.channel.type === 'dm') return;
     // GAME ZAKAYO !!
     if (reaction.message.content.startsWith('[JEUX]') && reaction.message.guild.id === '405415132177629186') {
       reaction.message.react('460384650393550848').then((message)=> {
@@ -365,6 +368,7 @@ bot.on('raw', async event => {
   });
   
   bot.on('messageReactionRemove', (reaction, user)=>{
+    if (message.channel.type === 'dm') return;
   
   // POUR LE ZAKAYO GAME
   
@@ -454,4 +458,4 @@ bot.on('raw', async event => {
     }
   });
 
-bot.login('NDYyODk3NTI3OTUyMjQ0NzM2.Dhoicw.MuMErphtFF29NOy0PiWlNMFPYHc');
+bot.login(process.env.TOKEN);
