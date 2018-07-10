@@ -472,4 +472,4 @@ bot.on('raw', async event => {
     }
   });
 
-bot.login(process.env.TOKEN);
+bot.login(process.env.TOKENd);
